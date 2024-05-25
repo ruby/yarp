@@ -51,6 +51,7 @@ def make(env, target)
     system(
       env,
       RUBY_PLATFORM.include?("openbsd") ? "gmake" : "make",
+      "--no-builtin-variables", # don't let GNU make implicit variables override variable fallbacks in the Makefile
       target,
       exception: true
     )
