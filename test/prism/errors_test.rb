@@ -1246,8 +1246,7 @@ module Prism
     end
 
     def test_invalid_message_name
-      result = Prism.parse("+.@foo,+=foo")
-      assert_equal :"", result.value.statements.body.first.write_name
+      assert_equal :"", Prism.parse_statement("+.@foo,+=foo").write_name
     end
 
     def test_invalid_operator_write_fcall
@@ -1976,8 +1975,8 @@ module Prism
       RUBY
 
       assert_errors expression(source), source, [
-        ["unexpected .., expecting end-of-input", 3..5],
-        ["unexpected .., ignoring it", 3..5],
+        ["unexpected range operator; .. and ... are non-associative and cannot be chained", 3..5],
+        ["unexpected range operator; .. and ... are non-associative and cannot be chained", 10..12],
         ["unexpected .., expecting end-of-input", 10..12],
         ["unexpected .., ignoring it", 10..12]
       ]
@@ -1991,12 +1990,18 @@ module Prism
         proc { |foo: foo| }
       RUBY
 
-      assert_errors expression(source), source, [
-        ["circular argument reference - bar", 8..11],
-        ["circular argument reference - bar", 32..35],
-        ["circular argument reference - foo", 55..58],
-        ["circular argument reference - foo", 76..79]
-      ]
+      assert_errors(
+        expression(source),
+        source,
+        [
+          ["circular argument reference - bar", 8..11],
+          ["circular argument reference - bar", 32..35],
+          ["circular argument reference - foo", 55..58],
+          ["circular argument reference - foo", 76..79]
+        ],
+        check_valid_syntax: false,
+        version: "3.3.0"
+      )
 
       refute_error_messages("def foo(bar: bar = 1); end")
     end
@@ -2129,14 +2134,14 @@ module Prism
 
     def test_regular_expression_with_unknown_regexp_options
       source = "/foo/AZaz"
-      errors = [["unknown regexp options: AZaz", 4..9]]
+      errors = [["unknown regexp options - AZaz", 4..9]]
 
       assert_errors expression(source), source, errors
     end
 
     def test_interpolated_regular_expression_with_unknown_regexp_options
       source = "/\#{foo}/AZaz"
-      errors = [["unknown regexp options: AZaz", 7..12]]
+      errors = [["unknown regexp options - AZaz", 7..12]]
 
       assert_errors expression(source), source, errors
     end
@@ -2245,10 +2250,10 @@ module Prism
 
     private
 
-    def assert_errors(expected, source, errors, check_valid_syntax: true)
+    def assert_errors(expected, source, errors, check_valid_syntax: true, **options)
       refute_valid_syntax(source) if check_valid_syntax
 
-      result = Prism.parse(source)
+      result = Prism.parse(source, **options)
       node = result.value.statements.body.last
 
       assert_equal_nodes(expected, node, compare_location: false)

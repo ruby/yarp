@@ -200,8 +200,8 @@ module Prism
 
   class << self
     # Mirror the Prism.dump API by using the serialization API.
-    def dump(code, **options)
-      LibRubyParser::PrismString.with_string(code) { |string| dump_common(string, options) }
+    def dump(source, **options)
+      LibRubyParser::PrismString.with_string(source) { |string| dump_common(string, options) }
     end
 
     # Mirror the Prism.dump_file API by using the serialization API.
@@ -300,6 +300,27 @@ module Prism
     # Mirror the Prism.parse_file_failure? API by using the serialization API.
     def parse_file_failure?(filepath, **options)
       !parse_file_success?(filepath, **options)
+    end
+
+    # Mirror the Prism.profile API by using the serialization API.
+    def profile(source, **options)
+      LibRubyParser::PrismString.with_string(source) do |string|
+        LibRubyParser::PrismBuffer.with do |buffer|
+          LibRubyParser.pm_serialize_parse(buffer.pointer, string.pointer, string.length, dump_options(options))
+          nil
+        end
+      end
+    end
+
+    # Mirror the Prism.profile_file API by using the serialization API.
+    def profile_file(filepath, **options)
+      LibRubyParser::PrismString.with_file(filepath) do |string|
+        LibRubyParser::PrismBuffer.with do |buffer|
+          options[:filepath] = filepath
+          LibRubyParser.pm_serialize_parse(buffer.pointer, string.pointer, string.length, dump_options(options))
+          nil
+        end
+      end
     end
 
     private
@@ -409,6 +430,9 @@ module Prism
 
       template << "C"
       values << { nil => 0, "3.3.0" => 1, "3.3.1" => 1, "3.4.0" => 0, "latest" => 0 }.fetch(options[:version])
+
+      template << "C"
+      values << (options[:encoding] == false ? 1 : 0)
 
       template << "L"
       if (scopes = options[:scopes])

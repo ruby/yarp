@@ -206,8 +206,8 @@ errors:
   - PARAMETER_SPLAT_MULTI
   - PARAMETER_STAR
   - PARAMETER_UNEXPECTED_FWD
-  - PARAMETER_WILD_LOOSE_COMMA
   - PARAMETER_UNEXPECTED_NO_KW
+  - PARAMETER_WILD_LOOSE_COMMA
   - PATTERN_CAPTURE_DUPLICATE
   - PATTERN_EXPRESSION_AFTER_BRACKET
   - PATTERN_EXPRESSION_AFTER_COMMA
@@ -236,6 +236,7 @@ errors:
   - REGEXP_INCOMPAT_CHAR_ENCODING
   - REGEXP_INVALID_UNICODE_RANGE
   - REGEXP_NON_ESCAPED_MBC
+  - REGEXP_PARSE_ERROR
   - REGEXP_TERM
   - REGEXP_UNKNOWN_OPTIONS
   - REGEXP_UTF8_CHAR_NON_UTF8_REGEXP
@@ -265,6 +266,8 @@ errors:
   - UNEXPECTED_BLOCK_ARGUMENT
   - UNEXPECTED_INDEX_BLOCK
   - UNEXPECTED_INDEX_KEYWORDS
+  - UNEXPECTED_MULTI_WRITE
+  - UNEXPECTED_RANGE_OPERATOR
   - UNEXPECTED_SAFE_NAVIGATION
   - UNEXPECTED_TOKEN_CLOSE_CONTEXT
   - UNEXPECTED_TOKEN_IGNORE
@@ -1880,19 +1883,56 @@ nodes:
     fields:
       - name: index
         type: node
+        comment: |
+          The index expression for `for` loops.
+
+              for i in a end
+                  ^
       - name: collection
         type: node
+        comment: |
+          The collection to iterate over.
+
+              for i in a end
+                       ^
       - name: statements
         type: node?
         kind: StatementsNode
+        comment: |
+          Represents the body of statements to execute for each iteration of the loop.
+
+              for i in a
+                foo(i)
+                ^^^^^^
+              end
       - name: for_keyword_loc
         type: location
+        comment: |
+          The location of the `for` keyword.
+
+              for i in a end
+              ^^^
       - name: in_keyword_loc
         type: location
+        comment: |
+          The location of the `in` keyword.
+
+              for i in a end
+                    ^^
       - name: do_keyword_loc
         type: location?
+        comment: |
+          The location of the `do` keyword, if present.
+
+              for i in a do end
+                         ^^
       - name: end_keyword_loc
         type: location
+        comment: |
+          The location of the `end` keyword.
+
+              for i in a end
+                         ^^^
     comment: |
       Represents the use of the `for` keyword.
 
@@ -3586,7 +3626,7 @@ nodes:
                          ^^^^
       - name: then_keyword_loc
         type: location?
-        comment:
+        comment: |
           The location of the `then` keyword, if present.
 
               unless cond then bar end

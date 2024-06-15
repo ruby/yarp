@@ -1,18 +1,19 @@
 PATH
   remote: ../..
   specs:
-    prism (0.29.0)
+    prism (0.30.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
     ffi (1.16.3)
-    parser (3.3.1.0)
+    onigmo (0.1.0)
+    parser (3.3.2.0)
       ast (~> 2.4.1)
       racc
     power_assert (2.0.3)
-    racc (1.7.3)
+    racc (1.8.0)
     rake (13.2.1)
     rake-compiler (1.2.7)
       rake
@@ -25,6 +26,7 @@ PLATFORMS
 
 DEPENDENCIES
   ffi
+  onigmo
   parser
   prism!
   rake

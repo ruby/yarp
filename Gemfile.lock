@@ -1,23 +1,24 @@
 PATH
   remote: .
   specs:
-    prism (0.29.0)
+    prism (0.30.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
     benchmark-ips (2.13.0)
-    ffi (1.16.3)
-    mini_portile2 (2.8.6)
+    ffi (1.17.0)
+    mini_portile2 (2.8.7)
     nokogiri (1.16.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    parser (3.3.1.0)
+    onigmo (0.1.0)
+    parser (3.3.2.0)
       ast (~> 2.4.1)
       racc
     power_assert (2.0.3)
-    racc (1.7.3)
+    racc (1.8.0)
     rake (13.2.1)
     rake-compiler (1.2.7)
       rake
@@ -36,6 +37,7 @@ PLATFORMS
 DEPENDENCIES
   benchmark-ips
   ffi
+  onigmo
   parser
   prism!
   rake

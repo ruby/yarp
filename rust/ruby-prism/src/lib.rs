@@ -198,6 +198,17 @@ impl<'pr> ParseResult<'pr> {
         }
     }
 
+    /// Returns an optional location of the __END__ marker and the rest of the content of the file.
+    #[must_use]
+    pub fn data_loc(&self) -> Option<Location<'_>> {
+        let location = unsafe { &(*self.parser.as_ptr()).data_loc };
+        if location.start.is_null() {
+            None
+        } else {
+            Some(Location::new(self.parser, location))
+        }
+    }
+
     /// Returns the root node of the parse result.
     #[must_use]
     pub fn node(&self) -> Node<'_> {
@@ -252,6 +263,26 @@ mod tests {
             let text = std::str::from_utf8(comment.text()).unwrap();
             assert!(text.starts_with("# comment"));
         }
+    }
+
+    #[test]
+    fn data_loc_test() {
+        let source = "1";
+        let result = parse(source.as_ref());
+        let data_loc = result.data_loc();
+        assert!(data_loc.is_none());
+
+        let source = "__END__\nabc\n";
+        let result = parse(source.as_ref());
+        let data_loc = result.data_loc().unwrap();
+        let slice = std::str::from_utf8(result.as_slice(&data_loc)).unwrap();
+        assert_eq!(slice, "__END__\nabc\n");
+
+        let source = "1\n2\n3\n__END__\nabc\ndef\n";
+        let result = parse(source.as_ref());
+        let data_loc = result.data_loc().unwrap();
+        let slice = std::str::from_utf8(result.as_slice(&data_loc)).unwrap();
+        assert_eq!(slice, "__END__\nabc\ndef\n");
     }
 
     #[test]
