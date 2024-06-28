@@ -903,16 +903,64 @@ nodes:
     fields:
       - name: constant
         type: node?
+        kind:
+          - ConstantPathNode
+          - ConstantReadNode
+        comment: |
+          Represents the optional constant preceding the Array
+
+              foo in Bar[]
+                     ^^^
+
+              foo in Bar[1, 2, 3]
+                     ^^^
+
+              foo in Bar::Baz[1, 2, 3]
+                     ^^^^^^^^
       - name: requireds
         type: node[]
+        comment: |
+          This represents all the entries in case there is no wildcard, or the entries up to the wildcard in case there is a single wildcard.
+
+              foo in 1, 2, 3
+                     ^^^^^^^
+
+              foo in 1, 2, *
+                     ^^^^
       - name: rest
         type: node?
+        comment: |
+          This represents the wildcard, which can be unnamed.
+
+              foo in 1, 2, *
+                           ^
+
+              foo in 1, 2, *a, 3
+                           ^^
       - name: posts
         type: node[]
+        comment: |
+          This represents all the entries after the wildcard.
+
+              foo in *, 1, 2, 3
+                        ^^^^^^^
+
+              foo in 1, 2, *, 3, 4
+                              ^^^^
       - name: opening_loc
         type: location?
+        comment: |
+          The location of the opening brace.
+
+              foo = [1, 2]
+                    ^
       - name: closing_loc
         type: location?
+        comment: |
+          The location of the closing brace.
+
+              foo = [1, 2]
+                         ^
     comment: |
       Represents an array pattern in pattern matching.
 
