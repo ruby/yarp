@@ -2768,6 +2768,9 @@ nodes:
 
           foo, bar = baz
           ^^^  ^^^
+
+          foo => baz
+                 ^^^
   - name: LocalVariableWriteNode
     fields:
       - name: name
