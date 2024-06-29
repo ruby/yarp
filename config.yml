@@ -3493,8 +3493,18 @@ nodes:
     fields:
       - name: variable
         type: node
+        comment: |
+          The variable used in the pinned expression
+
+              foo in ^bar
+                      ^^^
       - name: operator_loc
         type: location
+        comment: |
+          The location of the `^` operator
+
+              foo in ^bar
+                     ^
     comment: |
       Represents the use of the `^` operator for pinning a variable in a pattern matching expression.
 
