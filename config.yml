@@ -3478,12 +3478,32 @@ nodes:
     fields:
       - name: expression
         type: node
+        comment: |
+          The expression used in the pinned expression
+
+              foo in ^(bar)
+                       ^^^
       - name: operator_loc
         type: location
+        comment: |
+          The location of the `^` operator
+
+              foo in ^(bar)
+                     ^
       - name: lparen_loc
         type: location
+        comment: |
+          The location of the opening parenthesis.
+
+              foo in ^(bar)
+                      ^
       - name: rparen_loc
         type: location
+        comment: |
+          The location of the closing parenthesis.
+
+              foo in ^(bar)
+                          ^
     comment: |
       Represents the use of the `^` operator for pinning an expression in a pattern matching expression.
 
