@@ -40,7 +40,8 @@ The repository contains the infrastructure for both a shared library (libprism) 
 ├── rust
 │   ├── ruby-prism        Rustified crate for the shared library
 │   └── ruby-prism-sys    FFI binding for Rust
-├── sample                Sample code that uses the Ruby API for documentation
+├── sample
+│   └── prism             Sample code that uses the Ruby API for documentation purposes
 ├── sig                   RBS type signatures for the Ruby library
 ├── src
 │   ├── util              various utility files
@@ -120,6 +121,7 @@ Prism has been integrated into the majority of Ruby runtimes, many libraries, an
 ### Libraries
 
 * [dispersion](https://github.com/joeldrapper/dispersion)
+* [minifyrb](https://github.com/koic/minifyrb)
 * [packwerk](https://github.com/Shopify/packwerk/pull/388) (via parser translator)
 * [rbi](https://github.com/Shopify/rbi)
 * [rails](https://github.com/rails/rails)

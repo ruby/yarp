@@ -1,29 +1,25 @@
-PATH
-  remote: ../..
-  specs:
-    prism (0.30.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.1.3.4)
+    activesupport (7.2.0)
       base64
       bigdecimal
-      concurrent-ruby (~> 1.0, >= 1.0.2)
+      concurrent-ruby (~> 1.0, >= 1.3.1)
       connection_pool (>= 2.2.5)
       drb
       i18n (>= 1.6, < 2)
+      logger (>= 1.4.2)
       minitest (>= 5.1)
-      mutex_m
-      tzinfo (~> 2.0)
+      securerandom (>= 0.3)
+      tzinfo (~> 2.0, >= 2.0.5)
     ast (2.4.2)
     base64 (0.2.0)
     bigdecimal (3.1.8)
-    concurrent-ruby (1.3.3)
+    concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     csv (3.3.0)
     drb (2.2.1)
-    erubi (1.12.0)
+    erubi (1.13.0)
     ffi (1.17.0)
     fileutils (1.7.2)
     i18n (1.14.5)
@@ -34,15 +30,15 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.6.0)
-    minitest (5.23.1)
-    mutex_m (0.2.0)
+    minitest (5.25.1)
     netrc (0.11.0)
-    parallel (1.25.1)
-    parser (3.3.2.0)
+    parallel (1.26.3)
+    parser (3.3.4.2)
       ast (~> 2.4.1)
       racc
     power_assert (2.0.3)
-    racc (1.8.0)
+    prism (0.30.0)
+    racc (1.8.1)
     rainbow (3.1.1)
     rake (13.2.1)
     rake-compiler (1.2.7)
@@ -50,30 +46,30 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
-    rbi (0.1.13)
+    rbi (0.1.14)
       prism (>= 0.18.0, < 1.0.0)
       sorbet-runtime (>= 0.5.9204)
-    rbs (3.5.1)
+    rbs (3.5.3)
       logger
-    ruby_parser (3.21.0)
+    ruby_parser (3.21.1)
       racc (~> 1.5)
       sexp_processor (~> 4.16)
     securerandom (0.3.1)
-    sexp_processor (4.17.1)
-    sorbet (0.5.11428)
-      sorbet-static (= 0.5.11428)
-    sorbet-runtime (0.5.11428)
-    sorbet-static (0.5.11428-universal-darwin)
-    sorbet-static (0.5.11428-x86_64-linux)
-    sorbet-static-and-runtime (0.5.11428)
-      sorbet (= 0.5.11428)
-      sorbet-runtime (= 0.5.11428)
-    spoom (1.3.2)
+    sexp_processor (4.17.2)
+    sorbet (0.5.11531)
+      sorbet-static (= 0.5.11531)
+    sorbet-runtime (0.5.11531)
+    sorbet-static (0.5.11531-universal-darwin)
+    sorbet-static (0.5.11531-x86_64-linux)
+    sorbet-static-and-runtime (0.5.11531)
+      sorbet (= 0.5.11531)
+      sorbet-runtime (= 0.5.11531)
+    spoom (1.4.2)
       erubi (>= 1.10.0)
-      prism (>= 0.19.0)
+      prism (>= 0.28.0)
       sorbet-static-and-runtime (>= 0.5.10187)
       thor (>= 0.19.2)
-    steep (1.7.0)
+    steep (1.8.0.dev.2)
       activesupport (>= 5.1)
       concurrent-ruby (>= 1.1.10)
       csv (>= 3.0.9)
@@ -89,11 +85,11 @@ GEM
       strscan (>= 1.0.0)
       terminal-table (>= 2, < 4)
     strscan (3.1.0)
-    tapioca (0.14.3)
+    tapioca (0.16.1)
       bundler (>= 2.2.25)
       netrc (>= 0.11.0)
       parallel (>= 1.21.0)
-      rbi (>= 0.1.4, < 0.2)
+      rbi (>= 0.1.14, < 0.2)
       sorbet-static-and-runtime (>= 0.5.11087)
       spoom (>= 1.2.0)
       thor (>= 1.2.0)
@@ -107,9 +103,9 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     yard (0.9.36)
-    yard-sorbet (0.8.1)
-      sorbet-runtime (>= 0.5)
-      yard (>= 0.9)
+    yard-sorbet (0.9.0)
+      sorbet-runtime
+      yard
 
 PLATFORMS
   arm64-darwin-23
@@ -118,7 +114,6 @@ PLATFORMS
 DEPENDENCIES
   minitest
   parser
-  prism!
   rake
   rake-compiler
   rbs
