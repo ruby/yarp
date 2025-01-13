@@ -54,6 +54,7 @@ module Prism
       "dsym_str.txt",
       "dos_endings.txt",
       "heredocs_with_ignored_newlines.txt",
+      "leading_logical.txt",
       "method_calls.txt",
       "methods.txt",
       "multi_write.txt",
