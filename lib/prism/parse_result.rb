@@ -48,6 +48,16 @@ module Prism
       @offsets = offsets # set after parsing is done
     end
 
+    # Replace the value of start_line with the given value.
+    def replace_start_line(start_line)
+      @start_line = start_line
+    end
+
+    # Replace the value of offsets with the given value.
+    def replace_offsets(offsets)
+      @offsets.replace(offsets)
+    end
+
     # Returns the encoding of the source code, which is set by parameters to the
     # parser or by the encoding magic comment.
     def encoding
